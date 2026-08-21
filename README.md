@@ -277,6 +277,11 @@ Places this is weak, listed so nobody has to find them:
   everywhere else.** There are 1,933 of them, 0.04%.
 - **One name, out of 4,305,887, never answered.** It is unmeasured and unnamed,
   because the crawler counted the failure without recording which name it was.
+- **The crawler introduced itself to npm under the wrong name.** Its user agent
+  string says `github.com/dimhold/dep-weight`, which is where this work started
+  and which holds a different study. The script is published here unedited,
+  user agent included, because changing it after the fact would make the file
+  stop being the thing that ran.
 - **Scoped and unscoped names are counted the same way.** No attempt was made to
   group packages by organization, which would lower the "one maintainer" share
   by an amount this data cannot estimate.
