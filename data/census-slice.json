@@ -1,0 +1,285 @@
+{
+  "label": "slice-5000",
+  "input": "slice-5000.ndjson.gz",
+  "referenceDate": "2026-08-21T09:15:31.000Z",
+  "generatedAt": "2026-08-21T16:49:14.363Z",
+  "script": "scripts/census-aggregate.mjs",
+  "counts": {
+    "lines": 5000,
+    "parseErrors": 0,
+    "packages": 5000,
+    "noVersions": 1,
+    "noTimeForNewest": 0,
+    "versionSum": 88058,
+    "depSum": 24583,
+    "maintSum": 6838,
+    "installHook": 349,
+    "maintZero": 228,
+    "maintZeroPublishedByNpm": 165,
+    "maintOne": 4258,
+    "maintTwoPlus": 513,
+    "staleTwoYears": 3290,
+    "staleFiveYears": 1594,
+    "age": {
+      "<1m": 341,
+      "1-6m": 541,
+      "6-12m": 393,
+      "1-2y": 434,
+      "2-5y": 1696,
+      ">5y": 1594
+    },
+    "versions": {
+      "1": 1919,
+      "2": 596,
+      "3-5": 911,
+      "6-10": 573,
+      "11-25": 521,
+      "26-100": 350,
+      ">100": 129
+    },
+    "deps": {
+      "0": 1918,
+      "1-2": 1385,
+      "3-5": 794,
+      "6-10": 502,
+      "11-25": 285,
+      ">25": 115
+    }
+  },
+  "maintainerHistogram": {
+    "0": 228,
+    "1": 4258,
+    "2": 205,
+    "3": 86,
+    "4": 70,
+    "5": 38,
+    "6": 27,
+    "7": 21,
+    "8": 12,
+    "9": 11,
+    "10": 8,
+    "11": 3,
+    "12": 5,
+    "13": 2,
+    "14": 2,
+    "15": 1,
+    "16": 3,
+    "18": 1,
+    "20": 1,
+    "21": 4,
+    "22": 1,
+    "23": 3,
+    "25": 1,
+    "26": 1,
+    "28": 2,
+    "30": 1,
+    "31": 1,
+    "34": 1,
+    "92": 1,
+    "141": 1
+  },
+  "distinctPublishers": 4221,
+  "topPublishers": [
+    {
+      "account": "npm",
+      "packages": 186
+    },
+    {
+      "account": "GitHub Actions",
+      "packages": 184
+    },
+    {
+      "account": "terryfei",
+      "packages": 30
+    },
+    {
+      "account": "rajhsinggg",
+      "packages": 19
+    },
+    {
+      "account": "types",
+      "packages": 15
+    },
+    {
+      "account": "ayowel",
+      "packages": 14
+    },
+    {
+      "account": "savia",
+      "packages": 10
+    },
+    {
+      "account": "mipta1",
+      "packages": 9
+    },
+    {
+      "account": "cookiegraves",
+      "packages": 9
+    },
+    {
+      "account": "mindyartera",
+      "packages": 8
+    },
+    {
+      "account": "mayangsario",
+      "packages": 8
+    },
+    {
+      "account": "fusion-bot",
+      "packages": 7
+    },
+    {
+      "account": "query-farm",
+      "packages": 7
+    },
+    {
+      "account": "chatflowdev",
+      "packages": 7
+    },
+    {
+      "account": "kafir",
+      "packages": 7
+    },
+    {
+      "account": "arcodesign-bot",
+      "packages": 6
+    },
+    {
+      "account": "chiefmikey",
+      "packages": 6
+    },
+    {
+      "account": "gitmyabi-bot",
+      "packages": 6
+    },
+    {
+      "account": "wix-ci-publisher",
+      "packages": 6
+    },
+    {
+      "account": "mipta26",
+      "packages": 6
+    },
+    {
+      "account": "wanzaty",
+      "packages": 6
+    },
+    {
+      "account": "novalok",
+      "packages": 6
+    },
+    {
+      "account": "asepseptiano",
+      "packages": 6
+    },
+    {
+      "account": "an-node",
+      "packages": 6
+    },
+    {
+      "account": "botticello",
+      "packages": 6
+    },
+    {
+      "account": "chiricato",
+      "packages": 5
+    },
+    {
+      "account": "mark-ck",
+      "packages": 5
+    },
+    {
+      "account": "no-repeat",
+      "packages": 5
+    },
+    {
+      "account": "etc-tiago",
+      "packages": 5
+    },
+    {
+      "account": "bedlaj",
+      "packages": 5
+    },
+    {
+      "account": "stdlib-bot",
+      "packages": 5
+    },
+    {
+      "account": "ryliefrey",
+      "packages": 5
+    },
+    {
+      "account": "brennanlupkes13270",
+      "packages": 5
+    },
+    {
+      "account": "elswary",
+      "packages": 5
+    },
+    {
+      "account": "chad-develop",
+      "packages": 5
+    },
+    {
+      "account": "mipppp",
+      "packages": 5
+    },
+    {
+      "account": "ryancavanaugh",
+      "packages": 4
+    },
+    {
+      "account": "semi-bot",
+      "packages": 4
+    },
+    {
+      "account": "waweb",
+      "packages": 4
+    },
+    {
+      "account": "ehsalazar",
+      "packages": 4
+    },
+    {
+      "account": "cahyanogrego37",
+      "packages": 4
+    },
+    {
+      "account": "jonybibo",
+      "packages": 4
+    },
+    {
+      "account": "alexbill01",
+      "packages": 4
+    },
+    {
+      "account": "mipta19",
+      "packages": 4
+    },
+    {
+      "account": "axelbitblaz",
+      "packages": 4
+    },
+    {
+      "account": "mizukiyakane",
+      "packages": 4
+    },
+    {
+      "account": "dickyarya",
+      "packages": 3
+    },
+    {
+      "account": "afeiship",
+      "packages": 3
+    },
+    {
+      "account": "lank831011",
+      "packages": 3
+    },
+    {
+      "account": "google-wombot",
+      "packages": 3
+    }
+  ],
+  "elapsedSeconds": 2
+}
