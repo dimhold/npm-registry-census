@@ -1,0 +1,23 @@
+{
+  "name": "npm-registry-census",
+  "version": "1.0.0",
+  "description": "A census of every package in the npm registry, taken 2026-08-19 to 2026-08-21. Aggregates, scripts and a verification slice.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Dmitriy Semenkevich <dimhold@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimhold/npm-registry-census.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "census": "npm run names && npm run crawl && npm run aggregate",
+    "verify": "node scripts/verify.mjs",
+    "report": "node scripts/report.mjs",
+    "names": "node scripts/replica-names.mjs",
+    "crawl": "node scripts/crawl-npm.mjs --all --rps 25",
+    "aggregate": "node --max-old-space-size=3000 scripts/census-aggregate.mjs scripts/npm-all.ndjson --label full-census --now 2026-08-21T09:15:31Z --out data/census-full.json"
+  }
+}

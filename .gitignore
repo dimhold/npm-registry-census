@@ -1,0 +1,16 @@
+# The crawl output is 20.6 GB and is not published. Rebuild it with `npm run crawl`.
+npm-all.ndjson
+npm-sample-*.ndjson
+registry-names.txt
+pypi-names.txt
+
+# Crawler working files
+state-crawl-*.json
+state-names.json
+STATUS-crawl-*.md
+STATUS-names.md
+PAUSE-CRAWL
+PAUSE-NAMES
+*.log
+
+node_modules/
