@@ -38,6 +38,10 @@ packages with real trees.
 not people. `npm` published the newest version of 150,784 packages and
 `GitHub Actions` published the newest version of 147,917.
 
+**1.74% run code when you install them,** which is 74,664 packages, not the
+6.36% you get by grepping `package.json` for lifecycle scripts. The gap is
+`prepare`, declared by 198,614 packages and run by none of their installers.
+
 ## Three things this does not say
 
 These are not footnotes. They change what the numbers above mean.
@@ -142,18 +146,86 @@ The account that published the newest version, counted across the registry.
 
 The top 50 are in `data/census-full.json`.
 
-## Install hooks, and why the number here is an upper bound
+## Install hooks: 1.74%, and why you will see 6.36%
 
-274,098 packages, 6.4%, declare at least one of `preinstall`, `install`,
-`postinstall` or `prepare` in their newest version.
+**74,664 packages, 1.74% of the registry, run code on the machine of whoever
+installs them.** That is `preinstall`, `install` or `postinstall` declared in the
+newest version.
 
-That is an upper bound on "runs code when you `npm install` it", and it should
-not be quoted as the answer to that question. `prepare` does not run for
-somebody installing the published tarball from the registry, it runs for
-somebody building the package from source. The crawler stored the 4 hooks as a
-single bit, so this dataset cannot say how many of the 274,098 are `prepare`
-only. Answering that needs a second pass over those packages, which has not
-been done.
+Counting all 4 lifecycle scripts gives 273,278 packages and 6.36%. That is what a
+grep over `package.json` returns and it is 3.66x too high.
+
+The whole difference is `prepare`. 198,614 packages declare `prepare` and nothing
+else, which is 61.4% of the 323,536 candidates the first pass flagged. `prepare`
+does not run for somebody installing a published tarball from the registry. It
+runs for whoever builds the package from source or pulls it out of git.
+
+| | packages | % of registry |
+|---|---|---|
+| **runs code on install** | **74,664** | **1.74** |
+| postinstall | 49,813 | 1.16 |
+| install | 17,692 | 0.41 |
+| preinstall | 9,432 | 0.22 |
+| declares `prepare` only | 198,614 | 4.62 |
+| had a hook once, not in the newest version | 50,258 | 1.17 |
+
+The 3 hook rows sum to more than 74,664 because a package can declare several.
+
+An earlier version of this file gave 6.4% and said it was an upper bound because
+the crawler stored the 4 hooks as a single bit. The second pass replaces that
+number. 323,556 candidates were re-fetched by name on 2026-08-21, 0 errors, 20
+gone from the registry between the passes.
+
+### Check what prepare does before believing any of this
+
+Everything above rests on one claim, so do not take it from the docs. It takes 2
+minutes and none of the data here.
+
+```bash
+mkdir -p probe/pkg probe/consumer && cd probe/pkg
+cat > package.json <<'EOF'
+{
+  "name": "hook-probe",
+  "version": "1.0.0",
+  "scripts": {
+    "preinstall":  "node -e \"console.log('RAN preinstall')\"",
+    "install":     "node -e \"console.log('RAN install')\"",
+    "postinstall": "node -e \"console.log('RAN postinstall')\"",
+    "prepare":     "node -e \"console.log('RAN prepare')\""
+  }
+}
+EOF
+npm pack
+cd ../consumer && npm init -y
+npm install --foreground-scripts ../pkg/hook-probe-1.0.0.tgz
+```
+
+`--foreground-scripts` is not optional. Without it npm swallows hook output and
+the run looks like nothing fired at all.
+
+On node 22.17.0 and npm 10.9.2:
+
+| how it is installed | preinstall | install | postinstall | prepare |
+|---|---|---|---|---|
+| tarball from the registry | yes | yes | yes | **no** |
+| `npm install` inside the package itself | yes | yes | yes | yes |
+| as a git dependency | yes | yes | yes | yes, first |
+
+Row 1 is an ordinary install. Rows 2 and 3 are building, not consuming. In the
+git case `prepare` runs before `preinstall`, because the package is built from
+source and only then installed.
+
+### What this does not say
+
+- It counts a declared hook, not what the hook does. Nothing here was executed
+  and no script body was stored, so this dataset cannot tell a native build from
+  anything else.
+- It counts direct installs. How far these 74,664 reach through transitive
+  dependencies is a separate measurement and is not in this repository.
+- Newest version means newest by publish time from the `time` map, not by semver
+  order. Spot checked against `dist-tags.latest`, which agreed on every row
+  checked.
+- npm 10.9.2. The lifecycle set has changed across major versions of npm.
 
 ## The sample was right, within 0.16 points
 
@@ -169,7 +241,7 @@ reference date, so what is left between the two columns is sampling error.
 | two or more maintainers | 11.02% | 11.13% | +0.11 pp |
 | last publish 2 years or more ago | 65.77% | 65.68% | -0.09 pp |
 | last publish 5 years or more ago | 32.84% | 32.91% | +0.08 pp |
-| declares an install hook | 6.38% | 6.29% | -0.09 pp |
+| declares any of the 4 hooks | 6.38% | 6.29% | -0.09 pp |
 | no versions at all | 0.04% | 0.04% | -0.00 pp |
 
 The worst error across every metric measured is 0.16 pp, on exactly one
@@ -182,6 +254,14 @@ them.
 It does move the published figures. The sample said 84.7% and 65.6%. The census
 says 84.9% and 65.8%. Both sample figures were correct as sample estimates and
 both are superseded here.
+
+One row of that table deserves a warning. The sample said 6.29% of packages
+declare an install hook, the census said 6.38%, and the agreement is real. The
+number is still the wrong answer to the question people ask it, because 4.62 of
+those 6.38 points are `prepare` and `prepare` never runs on the installing
+machine. A larger sample would have agreed even more closely and stayed just as
+wrong. The error sat in the definition, where sample size has no purchase on
+it.
 
 ## How to repeat this
 
@@ -245,6 +325,8 @@ point, which is what a sample of 5,000 does.
 | `data/census-sample-100000.json` | the same counts for the earlier 100,000 sample, same script, same reference date |
 | `data/census-slice.json` | the same counts for the published slice |
 | `data/slice-5000.ndjson.gz` | 5,000 raw crawl records |
+| `data/hooks-full.json` | the install hook counts, from the second pass |
+| `data/hooks-slice.json` | every 160th candidate of the second pass with its verdict, 2,023 rows, for spot checking against the live registry |
 | `data/crawl-state.json` | what the crawler recorded: packages written, 404s, failures, throttles, bytes |
 | `data/crawl-status-as-run.md` | the crawler's own progress file, verbatim as it finished. Its labels are in Russian, which is the author's working language. `data/crawl-state.json` carries the same numbers with English keys |
 | `scripts/replica-names.mjs` | step 1, pages `replicate.npmjs.com` for every package name |
@@ -253,6 +335,8 @@ point, which is what a sample of 5,000 does.
 | `scripts/derive.mjs` | counts to percentages. The only place a share is computed |
 | `scripts/report.mjs` | prints the tables above from the aggregate |
 | `scripts/verify.mjs` | the check described above |
+| `scripts/hooks-pass.mjs` | the second pass, re-fetches every flagged package and records which of the 4 hooks each version declares |
+| `scripts/hooks-aggregate.mjs` | the second pass counted, and the slice written |
 
 ## What to argue with
 

@@ -1,0 +1,20 @@
+{
+  "registryTotal": 4296340,
+  "candidatesScanned": 323536,
+  "runsOnInstall": 74664,
+  "prepareOnly": 198614,
+  "hadHookNotAnyMore": 50258,
+  "everRanOnInstall": 101811,
+  "byHook": {
+    "preinstall": 9432,
+    "install": 17692,
+    "postinstall": 49813
+  },
+  "naiveAllFourHooks": 273278,
+  "pct": {
+    "runsOnInstall": 1.7379,
+    "prepareOnly": 4.6229,
+    "naiveAllFourHooks": 6.3607
+  },
+  "inflationFactor": 3.66
+}
