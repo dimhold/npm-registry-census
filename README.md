@@ -370,6 +370,22 @@ Places this is weak, listed so nobody has to find them:
   group packages by organization, which would lower the "one maintainer" share
   by an amount this data cannot estimate.
 
+## Prior work
+
+Checked 2026-08-27. Registry metadata is well covered.
+
+- [Ecosyste.ms](https://ecosyste.ms/) and [deps.dev](https://deps.dev/) both
+  maintain continuously updated datasets over package registry metadata, at a
+  scale this census does not beat.
+
+What this repository holds instead is a dated frozen snapshot of the whole
+registry, with the crawler, the counting scripts and a verification slice, where
+every number in the README is recomputed from raw counters by `npm run verify`
+and the run fails if text and data disagree.
+
+The open ground is not metadata but package contents, which nobody keeps
+continuously: `npm-follower` has been dead since December 2023.
+
 ## License
 
 MIT. See `LICENSE`.
