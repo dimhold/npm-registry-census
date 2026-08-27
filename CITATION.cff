@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "npm-registry-census"
+type: software
+authors:
+  - family-names: Semenkevich
+    given-names: Dmitriy
+    orcid: "https://orcid.org/0009-0009-3013-4978"
+version: "1.0.0"
+date-released: "2026-08-27"
+license: MIT
+repository-code: "https://github.com/dimhold/npm-registry-census"
+abstract: "A census of every package in the npm registry, August 2026. 4,296,340 packages counted: 84.9% list one maintainer, 65.8% have not been published to in two years. Aggregates, scripts and a verification slice."
+keywords:
+  - "npm"
+  - "software ecosystems"
+  - "software supply chain"
+  - "census"
+  - "dataset"
