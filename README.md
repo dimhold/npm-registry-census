@@ -1,5 +1,7 @@
 # npm registry census, August 2026
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22128843.svg)](https://doi.org/10.5281/zenodo.22128843)
+
 Every name in the npm registry, fetched from the registry itself and counted.
 This is not the 14 popular stacks that show up in blog posts and it is no
 longer a sample: the crawler walked the whole replication index, 4,305,887
